@@ -1,0 +1,129 @@
+﻿@page "/database"
+
+@using WebApplication1.Data
+<h1>Выберите список</h1>
+<button class="btn btn-primary" @onclick="stud">Cписок студентов</button>
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (musics == null && car == null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Группа</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Специальность</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var studet in students)
+            {
+                <tr>
+                    <td>@studet.Group</td>
+                    <td>@studet.Surname</td>
+                    <td>@studet.Name</td>
+                    <td>@studet.Patronymic</td>
+                    <td>@studet.Specialization</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="carad">Cписок машин</button>
+@if (car == null)
+{
+    <p><em>Loading...</em></p>
+}
+
+else if (musics == null && students == null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Модель</th>
+                <th>Марка</th>
+                <th>Цвет</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var carad in car)
+            {
+                <tr>
+                    <td>@carad.Model</td>
+                    <td>@carad.Marka</td>
+                    <td>@carad.Color</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="music">Cписок музыки</button>
+@if (musics == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (students == null && car == null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Исполнитель</th>
+                <th>Год выпуска</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var muc in musics)
+            {
+                <tr>
+                    <td>@muc.Name</td>
+                    <td>@muc.executor</td>
+                    <td>@muc.Year</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<student> students = student.Student();
+    private List<Cars> car = Cars.car();
+    private List<Music> musics = Music.musics();
+
+    private void stud()
+    {
+        students = student.Student();
+        car = null;
+        musics = null;
+
+    }
+
+    private void carad()
+    {
+        car = Cars.car();
+        musics = null;
+        students = null;
+
+    }
+
+    private void music()
+    {
+        musics = Music.musics();
+        car = null;
+        students = null;
+    }
+
+}

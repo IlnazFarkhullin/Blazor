@@ -1,0 +1,39 @@
+﻿@page "/student"
+
+@using WebApplication1.Data
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Группа</th>
+            <th>Специальность</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stud in students)
+        {
+            <tr>
+                <td>@stud.Surname</td>
+                <td>@stud.Name</td>
+                <td>@stud.Patronymic</td>
+                <td>@stud.Group</td>
+                <td>@stud.Specialization</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<student> students = student.Student();
+      
+}
+
+
+
+
+
+

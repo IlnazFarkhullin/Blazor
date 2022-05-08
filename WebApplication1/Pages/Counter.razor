@@ -1,0 +1,21 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+<button style="margin-left:500px" class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<br/>
+<input style="margin-left:500px" @bind="value" />
+<input style="margin-left:500px" @bind="value" />
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+    public int value { get; set; }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
