@@ -1,15 +1,17 @@
 ﻿@page "/todo"
+@using WebApplication1.Data
+@inject WebApplication1.IServis.ITodoService tds
 <h3>ToDoList</h3>
 
-<div class="row">
-    <div class="col">
-    <input @bind="newToDo" name="input" class="form-control" placeholder="Введите название"/>
+<!--<div class="row">
+    <div class="col">-->
+    @*<input @bind="newToDo" name="input" class="form-control" placeholder="Введите название"/>
     </div>
     <div class="col">
 
     <button @onclick="AddToDO" class="btn btn-success" > Добавить</button>
-    </div>
-</div>
+    </div>*@
+<!--</div>-->
 <table class="table">
     <thead>
         <tr>
@@ -19,22 +21,36 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in list)
-        {
-            <tr>
-               <td> @item.Name</td>
-               <td>@item.IsDone</td>
-            </tr>
-        }
+       @if (doto.Count()>0)
+       {
+          @foreach (var item in doto)
+          {
+                 <tr>
+                     <td>@item.Name</td>
+                     <td>@item.IsDone</td>
+                     
+                 </tr>
+          }
+       }
     </tbody>
 </table>
 @code {
-    private List<ToDoItem> list = new List<ToDoItem>();
-    public string newToDo;
-    private void AddToDO()
+    ToDoItem toDo = new ToDoItem();
+    List<ToDoItem> doto = new List<ToDoItem>();
+    protected override async Task OnInitializedAsync()
     {
-        list.Add(new ToDoItem { Name = newToDo });
+        GetToDO();
     }
+    private void GetToDO()
+    {
+        doto = tds.GetToDoItems();
+    }
+    //private List<ToDoItem> list = new List<ToDoItem>();
+    //public string newToDo;
+    //private void AddToDO()
+    //{
+    //    list.Add(new ToDoItem { Name = newToDo });
+    //}
 
     //private void ShowToDO()
     //{

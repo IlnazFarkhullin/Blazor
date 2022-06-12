@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Data;
+using WebApplication1.IServis;
 
 namespace WebApplication1
 {
@@ -29,6 +30,7 @@ namespace WebApplication1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<ITodoService, ServicToDoItem>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
