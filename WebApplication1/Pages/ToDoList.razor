@@ -7,7 +7,7 @@
     </div>
     <div class="col">
 
-    <button @onclick="AddStudentToDatabase" class="btn btn-success" > Добавить</button>
+    <button @onclick="AddToDO" class="btn btn-success" > Добавить</button>
     </div>
 </div>
 <table class="table">
@@ -29,17 +29,16 @@
     </tbody>
 </table>
 @code {
-    private IList<ToDoItem> list = new List<ToDoItem>();
+    private List<ToDoItem> list = new List<ToDoItem>();
     public string newToDo;
-    public static void AddStudentToDatabase(ToDoItem newToDo)
+    private void AddToDO()
     {
-        var client = new MongoClient("mongodb://localhost");
-        var database = client.GetDatabase("ToDoList");
-        var collection = database.GetCollection<ToDoItem>("ToDoItem");
-        collection.InsertOne(newToDo);
+        list.Add(new ToDoItem { Name = newToDo });
     }
-    //notes_class notes = new notes_class(txt_name.Text, txt_text.Text, date.DisplayDate);
-    //DataBaseMethods.AddSNotes(notes); 
-    //         MessageBox.Show($"Запись:\n {txt_name.Text} добавлена", "Регистрация студента", MessageBoxButton.OK, MessageBoxImage.Information);
-    //         NavigationService.Navigate(new notes_page());
+
+    //private void ShowToDO()
+    //{
+    //    ToDoItem.ShowToItem();
+    //}
+
 }
