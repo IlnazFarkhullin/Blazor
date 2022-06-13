@@ -9,6 +9,7 @@ namespace WebApplication1.IServis
 {
     public interface ITodoService
     {
+        void Save( ToDoItem to);
         ToDoItem GetToDoItem(Object _id);
         List<ToDoItem> GetToDoItems();
     }

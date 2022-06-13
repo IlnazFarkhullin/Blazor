@@ -3,15 +3,15 @@
 @inject WebApplication1.IServis.ITodoService tds
 <h3>ToDoList</h3>
 
-<!--<div class="row">
-    <div class="col">-->
-    @*<input @bind="newToDo" name="input" class="form-control" placeholder="Введите название"/>
+<div class="row">
+    <div class="col">
+    <input @bind="toDo.Name" name="input" class="form-control" placeholder="Введите название"/>
     </div>
     <div class="col">
 
-    <button @onclick="AddToDO" class="btn btn-success" > Добавить</button>
-    </div>*@
-<!--</div>-->
+    <button @onclick="(() => Save())" class="btn btn-success" > Добавить</button>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -45,6 +45,18 @@
     {
         doto = tds.GetToDoItems();
     }
+
+    private void Save()
+    {
+        tds.Save(toDo);
+        Reset();
+        GetToDO();
+    }
+    private void Reset()
+    {
+        toDo = new ToDoItem();
+    }
+
     //private List<ToDoItem> list = new List<ToDoItem>();
     //public string newToDo;
     //private void AddToDO()

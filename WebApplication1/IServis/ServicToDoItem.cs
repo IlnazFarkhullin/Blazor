@@ -38,5 +38,19 @@ namespace WebApplication1.IServis
             var collection = database.GetCollection<ToDoItem>("List");
             return collection.Find(x => true).ToList();
         }
+
+        public void Save(ToDoItem to)
+        {
+            var toObj = _collection.Find(x => x._id == to._id).FirstOrDefault();
+            if (toObj == null)
+            {
+                _collection.InsertOne(to);
+            }
+            else
+            {
+                _collection.ReplaceOne(x => x._id == to._id, to);
+            }
+
+        }
     }
 }
