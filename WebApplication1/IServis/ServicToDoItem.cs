@@ -31,13 +31,6 @@ namespace WebApplication1.IServis
         {
             return _collection.Find(FilterDefinition<ToDoItem>.Empty).ToList();
         }
-        public static List<ToDoItem> ShowToItem()
-        {
-            var todo = new MongoClient("mongodb://localhost");
-            var database = todo.GetDatabase("ToDoList");
-            var collection = database.GetCollection<ToDoItem>("List");
-            return collection.Find(x => true).ToList();
-        }
 
         public void Save(ToDoItem to)
         {
@@ -52,5 +45,12 @@ namespace WebApplication1.IServis
             }
 
         }
+        //public static List<ToDoItem> ShowToItem()
+        //{
+        //    var todo = new MongoClient("mongodb://localhost");
+        //    var database = todo.GetDatabase("ToDoList");
+        //    var collection = database.GetCollection<ToDoItem>("List");
+        //    return collection.Find(x => true).ToList();
+        //}
     }
 }
