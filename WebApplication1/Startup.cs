@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Data;
 using WebApplication1.IServis;
+using WebApplication1.DataBaseStudent;
 
 namespace WebApplication1
 {
@@ -31,6 +32,7 @@ namespace WebApplication1
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<ITodoService, ServicToDoItem>();
+            services.AddScoped<IStudentService, ServicStudents>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

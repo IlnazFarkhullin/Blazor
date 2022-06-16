@@ -14,7 +14,6 @@ namespace WebApplication1.Data
             Patronymic = patronymic;
             Group = group;
             Specialization = specialization;
-
         }
 
         public string Surname { get; set; }
@@ -29,12 +28,13 @@ namespace WebApplication1.Data
 
         public static List<student> Student()
         {
-            List<student> students = new List<student>();
-            students.Add(new student("Граница", "Дмитрий", "Cтаниславович", 323, "Программист"));
-            students.Add(new student("Скидан", "Алексей", "Викторович", 323, "Программист"));
-            return students;
+            List<student> musics2 = new List<student>();
+            musics2.Add(new student("Farkhullin", "Ilnaz", "Almazovich", 323 , "programmist"));
+            musics2.Add(new student("Farkhullin", "Ilnaz", "Almazovich", 323 , "programmist"));
+            musics2.Add(new student("Farkhullin", "Ilnaz", "Almazovich", 323 , "programmist"));
+            musics2.Add(new student("Farkhullin", "Ilnaz", "Almazovich", 323 , "programmist"));
+            return musics2;
         }
 
-        
     }
 }

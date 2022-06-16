@@ -22,6 +22,13 @@ namespace WebApplication1.IServis
             _collection = _database.GetCollection<ToDoItem>("List");
 
         }
+
+        public string  Delete(string ToDoid)
+        {
+            _collection.DeleteOne(z => z._id == ToDoid);
+            return "Deleted";
+        }
+
         public ToDoItem GetToDoItem(object _id)
         {
             return _collection.Find(x => x._id == x._id).FirstOrDefault();
@@ -45,6 +52,9 @@ namespace WebApplication1.IServis
             }
 
         }
+       
+
+        
         //public static List<ToDoItem> ShowToItem()
         //{
         //    var todo = new MongoClient("mongodb://localhost");

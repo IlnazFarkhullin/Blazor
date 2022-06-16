@@ -12,5 +12,6 @@ namespace WebApplication1.IServis
         void Save( ToDoItem to);
         ToDoItem GetToDoItem(Object _id);
         List<ToDoItem> GetToDoItems();
+        string Delete(string ToDoid);
     }
 }

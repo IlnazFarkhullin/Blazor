@@ -13,7 +13,8 @@ namespace WebApplication1.Data
     {
         [BsonId]
         [BsonIgnoreIfDefault]
-        public ObjectId _id;
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         public string Name { get; set; }
         public bool IsDone { get; set; }
