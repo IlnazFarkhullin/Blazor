@@ -1,13 +1,28 @@
 ﻿@page "/gallery"
+@using WebApplication1.Data
 @inject WebApplication1.galleryService.Igalleryservice tds
-@using Microsoft.Win32
-@using System.IO
+@using WebApplication1.galleryService
+@using BlazorInputFile
 
 <h3>Gallery</h3>
 <div class="row">
+    <div class="row">
+        <div class="row">
+            <h4><label>Фото</label></h4>
+        </div>
+        <div class="col-md-10">
+         <BlazorInputFile.InputFile OnChange="HandFileSelection"></BlazorInputFile.InputFile>
+            
+        </div>
+    </div>
+    <div class=" col-md-6">
+        <img src="@imgSrc" width="200" height="200" style="border: 1px solid #000000;margin-top:10px"/>
+    </div>
     <div class="col">
         <input @bind="toDo.Name" name="input" class="form-control" placeholder="Введите название" />
+        <span style="font-weight:bold;font-size:24px">@Message</span>
     </div>
+   
     <div class="col">
 
         <button @onclick="(() => Save())" class="btn btn-success"> Добавить</button>
@@ -29,7 +44,7 @@
             @foreach (var item in doto)
             {
                 <tr>
-                    <td><img src="" alt="картинка"/></td>
+                    <td><img  src="@item.photo" alt="@item.Name"  width="100" height="100" style="border: 1px solid #000000;margin-top:10px"/></td>
                     <td>@item.Name</td>
                     
                    
@@ -42,43 +57,55 @@
 </table>
 
 @code {
-     
-    galleryService.gallery gallery;
-    galleryService.gallery toDo = new galleryService.gallery();
+    string imgSrc = "";
+    string Message = "";
+    IFileListEntry file = null;
+    byte[] _fileBytes = null;
+    gallery toDo = new gallery();
     List<galleryService.gallery> doto = new List<galleryService.gallery>();
+
     protected override async Task OnInitializedAsync()
     {
-        GetToDO();
+        GetGallery();
     }
-    private void GetToDO()
+
+    private void GetGallery()
     {
         doto = tds.GetDBpainting();
     }
-
-    private void Save()
+    public async Task HandFileSelection(IFileListEntry[] files)
     {
-        tds.Save(toDo);
-        Reset();
-        GetToDO();
-    }
-    private void Reset()
-    {
-        toDo = new galleryService.gallery();
-
-    }
-    private static void imgsrc()
+        if (files.Count() > 0)
         {
-           OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-            if (openFileDialog.ShowDialog().GetValueOrDefault())
+            file = files.FirstOrDefault();
+            using (var memoryStream = new System.IO.MemoryStream())
             {
-                patient.Image = File.ReadAllBytes(openFileDialog.FileName);
-                MemoryStream byteStream = new MemoryStream(galleryService.gallery.photo);
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.StreamSource = byteStream;
-                image.EndInit();
-                Image.Source = image;
+                await file.Data.CopyToAsync(memoryStream);
+                _fileBytes = memoryStream.ToArray();
+
+                gallaryPage galp = new gallaryPage(tds);
+                var photo = galp.GetImage(Convert.ToBase64String(_fileBytes));
+
+                imgSrc = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(photo));
             }
         }
+    }
+
+    public void Save()
+    {
+        gallaryPage galp = new gallaryPage(tds);
+        Message = galp.SaveInfomation(_fileBytes, toDo);
+
+        toDo = new gallery();
+        imgSrc = "";
+        GetGallery ();
+    }
+
+    private  void Edit( string gallID)
+    {
+        gallaryPage gallp = new gallaryPage(tds);
+        toDo = gallp.getimg(gallID);
+        imgSrc = toDo.ImageUrl;
+        Message = " ";
+    }
 }

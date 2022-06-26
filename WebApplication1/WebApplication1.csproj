@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.Modal" Version="6.0.1" />
+    <PackageReference Include="BlazorInputFile" Version="0.2.0" />
+    <PackageReference Include="BlazorInputFileExtended" Version="1.3.17" />
     <PackageReference Include="MongoDB.Driver" Version="2.16.0" />
   </ItemGroup>
 

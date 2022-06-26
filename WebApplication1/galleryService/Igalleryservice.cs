@@ -8,8 +8,8 @@ namespace WebApplication1.galleryService
 {
     public interface Igalleryservice
     {
-        void Save(gallery to);
-        gallery GetDBpaintings(Object _id);
+       string Save(gallery to);
         List<gallery> GetDBpainting();
+        gallery GetDBpaintings(string _id);
     }
 }

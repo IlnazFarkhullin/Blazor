@@ -16,7 +16,8 @@ namespace WebApplication1.galleryService
         [BsonIgnoreIfDefault]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; } = ObjectId.GenerateNewId().ToString();
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public byte[] photo { get; set; }
+        public string ImageUrl { get; set; } = "";
     }
 }

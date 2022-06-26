@@ -9,38 +9,41 @@ namespace WebApplication1.galleryService
 {
     public class paintingService : Igalleryservice
     {
-        private MongoClient _todo = null;
-        private IMongoDatabase _database = null;
-        private IMongoCollection<gallery> _collection = null;
+        gallery _gall = new gallery();
 
+        private MongoClient _mongoClient = null;
+        private IMongoDatabase _database = null;
+        private IMongoCollection<gallery> _galleryTable = null;
+         
         public paintingService()
         {
-            _todo = new MongoClient("mongodb://localhost");
-            _database = _todo.GetDatabase("gallery");
-            _collection = _database.GetCollection<gallery>("paintings");
-
+            _mongoClient = new MongoClient("mongodb://localhost:27017/");
+            _database = _mongoClient.GetDatabase("gallery");
+            _galleryTable = _database.GetCollection<gallery>("paintings");
         }
+
         public List<gallery> GetDBpainting()
         {
-            return _collection.Find(FilterDefinition<gallery>.Empty).ToList();
+            return _galleryTable.Find(FilterDefinition<gallery>.Empty).ToList();
         }
 
-        public gallery GetDBpaintings(object _id)
+        public gallery GetDBpaintings(string _id)
         {
-            return _collection.Find(x => x._id == x._id).FirstOrDefault();
+            return _galleryTable.Find(x => x._id == _id).FirstOrDefault();
         }
 
-        public void Save(gallery to)
+        public string Save(gallery to)
         {
-            var toObj = _collection.Find(x => x._id == to._id).FirstOrDefault();
-            if (toObj == null)
+            var galleryObj = _galleryTable.Find(x => x._id == to._id).FirstOrDefault();
+            if (galleryObj == null)
             {
-                _collection.InsertOne(to);
+                _galleryTable.InsertOne(to);
             }
             else
             {
-                _collection.ReplaceOne(x => x._id == to._id, to);
+                _galleryTable.ReplaceOne(x => x._id == to._id, to);
             }
+            return "Saved";
         }
     }
 }
