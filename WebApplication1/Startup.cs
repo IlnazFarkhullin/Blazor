@@ -13,6 +13,7 @@ using WebApplication1.Data;
 using WebApplication1.IServis;
 using WebApplication1.DataBaseStudent;
 using WebApplication1.galleryService;
+using Blazored.Modal;
 
 namespace WebApplication1
 {
@@ -35,6 +36,7 @@ namespace WebApplication1
             services.AddScoped<ITodoService, ServicToDoItem>();
             services.AddScoped<IStudentService, ServicStudents>();
             services.AddScoped<Igalleryservice, paintingService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

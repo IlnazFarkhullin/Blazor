@@ -32,7 +32,7 @@
                     <td>@item.Surname</td>
                     <td>@item.Name</td>
                     <td>@item.Lname</td>
-                    <td><button><img src="/img/Save.png"/></button></td>
+                    <td><button ><img src="/img/Save.png"/></button></td>
                     <td><button class="btn btn-success" @onclick ="@(e => Deleted(item._id))">Удалить</button></td>
 
                 </tr>
@@ -42,6 +42,7 @@
 
 </table>
 @code {
+   
     DataBaseStudent.DBStudents toDo = new DataBaseStudent.DBStudents();
     List<DataBaseStudent.DBStudents> doto = new List<DataBaseStudent.DBStudents>();
     protected override async Task OnInitializedAsync()
